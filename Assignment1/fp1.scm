@@ -30,6 +30,20 @@ Functional Programming 1
   )
 )
 
+(define alphabet '(a b c d e f g h i j k l m n o p q r s t u v w x y z))
+(define (helper atm L)
+  (cond
+    ((and (null? L) (null? atm) 0)) ; If both are null, return 0
+    ((and (null? L) (list? atm) 0)) ; if atm is a list, return 0
+    ((and (list? atm) (list? L) (not_empty L)) (helper (car L) (cdr L))) ; If list is non empty, call helper
+    ((and (null? atm) (list? L) (not_empty L)) (helper (car L) (cdr L))) ; if list is non empty, call helper 
+    ((and (member atm alphabet) (not_empty L) (list? L)) (helper (car L) (cdr L))) ; if atm is in [a-z], call helper 
+    ((and (not (member atm alphabet)) (null? L)) atm) ; If atm not in [a-z] and L is null, return atm 
+    ((and (not (member atm alphabet)) (list? L)) (+ atm (helper (car L) (cdr L)))) ; Normal case
+   (else 0)
+  )
+  )
+
 (define (sum-up-numbers-simple L)
   (cond 
     ((null? L ) 0) ; If the list is empty, return 0
