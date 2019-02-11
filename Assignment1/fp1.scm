@@ -20,6 +20,16 @@ Functional Programming 1
 ;;; Problem 2
 ;;; This function expects a list as the parameter
 ;;; if a list is not provided, it will return 0
+
+(define (not_empty lis) (not(eq? lis '()))) ; Used to determine if a list is empty
+(define (member atm lis)
+  (cond
+    ((null? lis) #f) ;; empty list
+    ((eq? atm (car lis)) #t)
+    (else (member atm (cdr lis)))
+  )
+)
+
 (define (sum-up-numbers-simple L)
   (cond 
     ((null? L ) 0) ; If the list is empty, return 0
@@ -27,3 +37,4 @@ Functional Programming 1
     (else 0) ; Else return 0
   )
 )
+
