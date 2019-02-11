@@ -52,3 +52,12 @@ Functional Programming 1
   )
 )
 
+;;; Problem 3
+;;; This function is a modification of problem 2.
+(define (sum-up-numbers-general L)
+  (cond 
+    ((null? L ) 0) ; If the list is empty, return 0
+    ((list? L) (helper2 (car L) (cdr L))) ; If L is a list, call helper
+    (else 0) ; Else return 0
+  )
+
