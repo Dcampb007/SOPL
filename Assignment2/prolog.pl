@@ -14,12 +14,14 @@ Note this assignment should be run with the test cases wrapped in once() functio
 % If there are no such numbers, the result is zero.
 
 % Function will sum the numbers, then check if N equals the sumed values
-sum-up-numbers-simple(L, N) :- sum-up-helper(L, N).
+sum-up-numbers-simple(L, N) :- sum-up-helper(L, Y), Y=N.
 
 sum-up-helper([],0). % Base case
-sum-up-helper([H|T], N) :- % Sum up the values in the list
-	sum-up-helper(T, Res), N is H + Res.
-
-
-
-
+sum-up-helper([H|T], N) :- % If H is a number, add it to Res
+	number(H),
+	sum-up-helper(T, Res),
+	N is H + Res.
+sum-up-helper([H|T], N) :- % Else N is Res
+	\+number(H),
+	sum-up-helper(T, Res),
+	N is Res.
