@@ -14,17 +14,14 @@ Note this assignment should be run with the test cases wrapped in once() functio
 % If there are no such numbers, the result is zero.
 
 % Function will sum the numbers, then check if N equals the sumed values
-sum-up-numbers-simple(L, N) :- sum-up-helper(L, Y), Y=N.
-
-sum-up-helper([],0). % Base case
-sum-up-helper([Head|Tail], N) :- % If Head is a number, add it to Res
+sum-up-numbers-simple([],0). % Base case
+sum-up-numbers-simple([Head|Tail], N) :- % If Head is a number, add it to Res
 	number(Head),
-	sum-up-helper(Tail, Res),
+	sum-up-numbers-simple(Tail, Res),
 	N is Head + Res.
-sum-up-helper([Head|Tail], N) :- % Else N is Res
+sum-up-numbers-simple([Head|Tail], N) :- % Else 
 	\+number(Head),
-	sum-up-helper(Tail, Res),
-	N is Res.
+	sum-up-numbers-simple(Tail, N).
 
 % Problem 2
 % Write a predicate sum-up-numbers-general(L, N). L is a list, which may
