@@ -48,12 +48,18 @@ sum-up-numbers-general([_|Tail], N) :- % Else
 % If there is no number in L2, all the numbers in L1 should be used to calculate the minimum. If
 % there is no number in L1 larger than the smallest number in L2, the predicate is false.
 
-
-% Assuming we are only dealing with positive numbers
-find-min([], 1000000000). % If list is empty, smallest number is a very large number
-find-min([X], X). % if only one element, Thats the smallest.
-find-min([Head|Tail], MinVal) :- 
+% Assuming we are only dealing with positive numbers,
+find-min([], 2147483647). % If list is empty, smallest number is a very large number
+find-min([Head|Tail], MinVal) :- % if Head is smaller, update new minimum
 	number(Head),
 	find-min(Tail, TempMax),
 	Head < TempMax,
 	MinVal is Head.
+find-min([Head|Tail], MinVal) :-  % If head is larger or equal, stay the same
+	number(Head),
+	find-min(Tail, TempMax),
+	Head >= TempMax,
+	MinVal is TempMax.
+find-min([_|Tail], MinVal) :- % Else
+	find-min(Tail, MinVal).
+
