@@ -47,6 +47,15 @@ sum-up-numbers-general([_|Tail], N) :- % Else
 % true if N is the minimum of the numbers in L1 that are larger than the smallest number in L2.
 % If there is no number in L2, all the numbers in L1 should be used to calculate the minimum. If
 % there is no number in L1 larger than the smallest number in L2, the predicate is false.
+min-above-min([], _, _) :- false. % if L1 is empty, the whole thing is false
+min-above-min(L1, L2, N) :- % If L2 is empty and N is in L1
+    L2 == [],
+	member(N, L1).
+min-above-min(L1, L2, N) :- % If N is greater than the smallest value in L2 and N is in L1
+    L2 \== [],
+    find-min(L2, L2Min), 
+	member(N, L1),
+	N > L2Min.
 
 % Assuming we are only dealing with positive numbers,
 find-min([], 2147483647). % If list is empty, smallest number is a very large number
