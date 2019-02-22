@@ -40,3 +40,20 @@ sum-up-numbers-general([Head|Tail], N) :- % Else if Head is a list, add the two 
 	N is A + B.
 sum-up-numbers-general([_|Tail], N) :- % Else
 	sum-up-numbers-general(Tail, N).
+
+% Problem 3
+% Write a predicate min-above-min(L1, L2, N). L1 and L2 are both simple lists,
+% which do not contain nested lists. Both lists may have non-numeric elements. The predicate is
+% true if N is the minimum of the numbers in L1 that are larger than the smallest number in L2.
+% If there is no number in L2, all the numbers in L1 should be used to calculate the minimum. If
+% there is no number in L1 larger than the smallest number in L2, the predicate is false.
+
+
+% Assuming we are only dealing with positive numbers
+find-min([], 1000000000). % If list is empty, smallest number is a very large number
+find-min([X], X). % if only one element, Thats the smallest.
+find-min([Head|Tail], MinVal) :- 
+	number(Head),
+	find-min(Tail, TempMax),
+	Head < TempMax,
+	MinVal is Head.
