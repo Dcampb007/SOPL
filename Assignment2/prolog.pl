@@ -72,3 +72,19 @@ find-min([Head|Tail], MinVal) :-  % If head is larger or equal, stay the same
 find-min([_|Tail], MinVal) :- % Else
 	find-min(Tail, MinVal).
 
+
+% Problem 4
+% Write a predicate common-unique-elements(L1,L2,N). L1 and L2 are both
+% general lists, which may contain nested lists. The predicate is true 
+% if N is a simple list (i.e. a list without sub-lists) of the items that 
+% appear in both L1 and L2 (including the sub-lists within).
+% The elements in the result list must be unique.
+common-unique-elements(_, _, []) :- true.
+common-unique-elements(L1, L2, [Head|Tail]) :- % If Head is in both L1 and L2, then it's common
+	nested-member(Head, L1),
+	nested-member(Head, L2),
+	common-unique-elements(L1, L2, Tail).
+
+nested-member(X, [X|_]).                 % If X is the first element
+nested-member(X, [Head|_]) :- nested-member(X, Head). % If X is inside of the first element
+nested-member(X, [_|Tail]) :- nested-member(X, Tail). % If X is a member of tail
