@@ -37,11 +37,11 @@ Functional Programming 1
     ((and (list? atm) (list? L) (not_empty L)) (helper (car L) (cdr L))) ; If list is non empty, call helper
     ((and (null? atm) (list? L) (not_empty L)) (helper (car L) (cdr L))) ; if list is non empty, call helper 
     ((and (not(number? atm)) (not_empty L) (list? L)) (helper (car L) (cdr L))) ; if atm is in [a-z], call helper 
-    ((and (number? atm)) (null? L)) atm) ; If atm not in [a-z] and L is null, return atm 
-    ((and (number? atm)) (list? L)) (+ atm (helper (car L) (cdr L)) ; Normal case
+    ((and (number? atm) (null? L)) atm) ; If atm not in [a-z] and L is null, return atm 
+    ((and (number? atm) (list? L)) (+ atm (helper (car L) (cdr L)))) ; Normal case
    (else 0)
   )
-  )
+)
 
 (define (sum-up-numbers-simple L)
   (cond 
@@ -53,6 +53,14 @@ Functional Programming 1
 
 ;;; Problem 3
 ;;; This function is a modification of problem 2.
+
+(define (sum-up-numbers-general L)
+  (cond 
+    ((null? L ) 0) ; If the list is empty, return 0
+    ((list? L) (helper2 (car L) (cdr L))) ; If L is a list, call helper
+    (else 0) ; Else return 0
+  )
+)
 
 ; NOTE  
 ; Since this code is very similar to the one above it,
@@ -72,6 +80,3 @@ Functional Programming 1
    (else 0)
   )
 )
-
-
-
